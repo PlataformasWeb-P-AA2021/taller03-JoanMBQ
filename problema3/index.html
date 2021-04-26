@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+</head>
+<body>
+    <h2>Comprehensive Country Code Information</h2>
+    <p id="datos">
+    </p>
+    <button type="submit" id="getInfo">Obtener información</button>
+    <button type="submit" id="limpiarInfo">Limpiar información</button>
+    <script>
+        $(document).ready(function() {
+            var url = "https://pkgstore.datahub.io/core/country-codes/country-codes_json/data/616b1fb83cbfd4eb6d9e7d52924bb00a/country-codes_json.json";
+            $( "#getInfo" ).click(function() {
+                $.ajax({
+                dataType: 'json',
+                url: url 
+                }).then(function(data) {
+                    for(var i = 0; i < data.length; i++){
+                        $('#datos').append(
+                          "<p><b>Country's customary English short name (CLDR): </b>" + (data[i])['CLDR display name'] + 
+                          "<br><b>Capital city from Geonames: </b>" + (data[i])['Capital'] + 
+                          "<br><b>Codes from the U.S. standard FIPS PUB 10-4: </b>" + (data[i])['FIPS'] + 
+                          "<br><b>Codes assigned by the Fédération Internationale de Football Association: </b>" + (data[i])['FIFA'] + 
+                          "<br><b>Continent from Geonames: </b>" + (data[i])['Continent'] + 
+                          "<br><b>Languages from Geonames: </b>" + (data[i])['Languages'] + 
+                          "<br><b>Geoname ID: </b>" + (data[i])['Geoname ID'] + 
+                          "<br><b>Distinguishing signs of vehicles in international traffic: </b>" + (data[i])['DS'] + 
+                          "<br></p>");
+                    }
+                })      
+            }); 
+
+            $( "#limpiarInfo" ).click(function(){
+                $("#datos").empty();
+            })
+        });
+    </script> 
+</body>
+</html>
