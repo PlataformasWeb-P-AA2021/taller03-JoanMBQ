@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-    <h2>Comprehensive Country Code Information</h2>
-    <p id="datos">
-    </p>
+    <h2 style="text-align: center;">Comprehensive Country Code Information</h2>
+    <div>
+	 	<h3></h3>
+	  	<div>
+    	<p id="datos">
+    	</p>
+    	</div>
+    </div>
     <button type="submit" id="getInfo">Obtener información</button>
     <button type="submit" id="limpiarInfo">Limpiar información</button>
     <script>
@@ -20,8 +27,8 @@
                 url: url 
                 }).then(function(data) {
                     for(var i = 0; i < data.length; i++){
-                        $('#datos').append(
-                          "<p><b>Country's customary English short name (CLDR): </b>" + (data[i])['CLDR display name'] + 
+                    	$("#datos").append("<h3><b>" + (data[i])['CLDR display name'] + "</b>" +
+                    	  "</h3><div><p><b>Country's customary English short name (CLDR): </b>" + (data[i])['CLDR display name'] + 
                           "<br><b>Capital city from Geonames: </b>" + (data[i])['Capital'] + 
                           "<br><b>Codes from the U.S. standard FIPS PUB 10-4: </b>" + (data[i])['FIPS'] + 
                           "<br><b>Codes assigned by the Fédération Internationale de Football Association: </b>" + (data[i])['FIFA'] + 
@@ -29,15 +36,18 @@
                           "<br><b>Languages from Geonames: </b>" + (data[i])['Languages'] + 
                           "<br><b>Geoname ID: </b>" + (data[i])['Geoname ID'] + 
                           "<br><b>Distinguishing signs of vehicles in international traffic: </b>" + (data[i])['DS'] + 
-                          "<br></p>");
-                    }
-                })      
-            }); 
-
+                          "<br></p></div>");
+                    }$( function() {
+						$( "#datos" ).accordion({
+				      		collapsible: true
+				    	});
+					}); 
+                })     
+            });
             $( "#limpiarInfo" ).click(function(){
                 $("#datos").empty();
             })
         });
-    </script> 
+    </script>
 </body>
 </html>
